@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1000" viewBox="0 0 1000 1000" shape-rendering="crispEdges">
+  <rect width="1000" height="1000" fill="#ffffff"/>
+  <g transform="translate(5 230) scale(9)">
+    <path fill="#000000" d="
+      M30 10h10v10H30z
+      M90 10h10v10H90z
+      M20 20h10v10H20z
+      M80 20h10v10H80z
+      M10 30h70v10H10z
+      M10 40h30v10H10z
+      M50 40h30v10H50z
+    "/>
+  </g>
+</svg>

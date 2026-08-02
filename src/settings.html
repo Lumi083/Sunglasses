@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>墨镜</title>
+  <link rel="stylesheet" href="settings.css">
+</head>
+<body>
+  <main>
+    <section class="settings-section">
+      <div class="section-title">
+        <span>显示</span>
+      </div>
+      <div class="settings-grid">
+        <article class="setting-item">
+          <div class="setting-copy">
+            <h2>开关</h2>
+            <p>可以按 <kbd id="shortcut-hint">Alt+I</kbd> 切换</p>
+          </div>
+          <label class="switch" aria-label="遮罩开关">
+            <input id="enabled" type="checkbox">
+            <span></span>
+          </label>
+        </article>
+
+        <article class="setting-item">
+          <div class="setting-copy">
+            <h2>颜色</h2>
+            <p>颜色</p>
+          </div>
+          <div class="color-control">
+            <input id="color" type="color" aria-label="遮罩颜色">
+            <code id="color-value">#000000</code>
+          </div>
+        </article>
+
+        <article class="setting-item setting-item-stack">
+          <div class="setting-row">
+            <div class="setting-copy">
+              <h2>不透明度</h2>
+              <p>数值越高，屏幕看起来越暗</p>
+            </div>
+            <output id="opacity-value">45%</output>
+          </div>
+          <input id="opacity" class="range" type="range" min="0" max="100" step="0.5">
+        </article>
+
+        <article class="setting-item">
+          <div class="setting-copy">
+            <h2>覆盖任务栏</h2>
+            <p>用全屏窗口系统任务栏</p>
+          </div>
+          <label class="switch" aria-label="覆盖任务栏">
+            <input id="cover-taskbar" type="checkbox">
+            <span></span>
+          </label>
+        </article>
+      </div>
+    </section>
+
+    <section class="settings-section">
+      <div class="section-title">
+        <span>行为</span>
+      </div>
+      <div class="settings-grid">
+        <article class="setting-item setting-item-stack">
+          <div class="setting-copy">
+            <h2>开关快捷键</h2>
+            <p>点击右侧按钮，然后按下新的组合键按 Esc 取消</p>
+          </div>
+          <button id="shortcut" class="shortcut-recorder" type="button">Alt+I</button>
+          <div id="shortcut-error" class="error" role="alert"></div>
+        </article>
+
+        <article class="setting-item setting-item-stack">
+          <div class="setting-row">
+            <div class="setting-copy">
+              <h2>循环置顶</h2>
+              <p>定期尝试强行置顶</p>
+            </div>
+            <label class="switch" aria-label="强行置顶循环">
+              <input id="force-top-enabled" type="checkbox">
+              <span></span>
+            </label>
+          </div>
+          <label class="interval-row">
+            <span>置顶间隔</span>
+            <input id="force-top-interval" class="number-input" type="number" min="100" max="60000" step="100">
+            <span>ms</span>
+          </label>
+        </article>
+      </div>
+    </section>
+
+    <section class="settings-section">
+      <div class="section-title">
+        <span>统计</span>
+      </div>
+      <div class="settings-grid">
+        <article class="setting-item usage-item setting-item-wide">
+          <div class="setting-copy">
+            <h2>累计启用时间</h2>
+          </div>
+          <strong id="total-usage">0 秒</strong>
+        </article>
+      </div>
+    </section>
+
+    <footer id="save-status">设置会自动保存</footer>
+  </main>
+
+  <div id="opacity-confirm" class="confirm-overlay" hidden>
+    <section class="confirm-dialog" role="alertdialog" aria-modal="true" aria-labelledby="confirm-title">
+      <div class="confirm-mark">!</div>
+      <div>
+        <h2 id="confirm-title">防吞灯泡提示</h2>
+        <p>你希望设置为<strong id="confirm-opacity">60%</strong>不透明度，这么高真的没关系吗？</p>
+      </div>
+      <div class="confirm-countdown"><span id="confirm-seconds">15</span> 秒后恢复</div>
+      <div class="confirm-actions">
+        <button id="confirm-cancel" type="button">撤回变更</button>
+        <button id="confirm-keep" class="primary-button" type="button">保留设置</button>
+      </div>
+    </section>
+  </div>
+  <script src="settings.js"></script>
+</body>
+</html>
