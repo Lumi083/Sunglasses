@@ -2,9 +2,19 @@ name: Build Desktop
 
 on:
   push:
-    branches: [web]
+    branches: [main]
+    paths:
+      - "desktop/**"
+      - "scripts/check-version.cjs"
+      - "VERSION"
+      - ".github/workflows/desktop.yml"
   pull_request:
-    branches: [web]
+    branches: [main]
+    paths:
+      - "desktop/**"
+      - "scripts/check-version.cjs"
+      - "VERSION"
+      - ".github/workflows/desktop.yml"
   workflow_dispatch:
 
 permissions:
@@ -25,15 +35,19 @@ jobs:
         with:
           node-version: "20"
           cache: npm
+          cache-dependency-path: desktop/package-lock.json
 
       - name: Install dependencies
         run: npm ci
+        working-directory: desktop
 
       - name: Check JavaScript
         run: npm run check
+        working-directory: desktop
 
       - name: Build package
         run: npm run build:win
+        working-directory: desktop
         env:
           CSC_IDENTITY_AUTO_DISCOVERY: "false"
 
@@ -41,6 +55,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: sunglasses-windows
-          path: release/*.exe
+          path: desktop/release/*.exe
           if-no-files-found: error
           retention-days: 14

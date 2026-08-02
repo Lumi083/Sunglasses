@@ -6,8 +6,10 @@
   "author": "Lumi083",
   "main": "src/main.js",
   "scripts": {
+    "prestart": "node ../scripts/check-version.cjs",
     "start": "electron .",
-    "check": "node --check src/main.js && node --check src/preload.cjs && node --check src/settings.js",
+    "check": "node ../scripts/check-version.cjs && node --check src/main.js && node --check src/preload.cjs && node --check src/settings.js",
+    "prebuild:win": "node ../scripts/check-version.cjs",
     "build:win": "electron-builder --win portable --x64"
   },
   "devDependencies": {

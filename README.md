@@ -1,71 +1,51 @@
 # Sunglasses
 
-Sunglasses uses a pure-black, semi-transparent, input-transparent overlay to
-reduce perceived screen brightness without changing the system brightness or
-interfering with other applications.
+Sunglasses provides input-transparent screen dimming overlays for Windows and
+Android. Both applications are maintained in this monorepo and currently use
+version `1.0.0`.
 
-This branch contains the Electron desktop implementation.
+## Projects
 
-Current version: `1.0.0`. The version is maintained in `package.json` and is
-used by Electron at runtime and by packaged artifact names.
+- `desktop/`: Electron desktop application. Windows packaging is enabled;
+  macOS and Linux packaging is temporarily disabled.
+- `android/`: Native Android application using a foreground service and
+  non-touchable overlay windows.
 
-Both implementations follow the same minimal model:
+Both implementations require confirmation when an enabled overlay is set above
+60% opacity. If it is not confirmed within 15 seconds, the opacity rolls back
+to a safe value below the threshold.
 
-1. Cover the available display with a black overlay.
-2. Control dimming by changing only the overlay alpha.
-3. Keep the overlay non-focusable and non-interactive so all pointer, touch,
-   and keyboard input continues to reach the application below it.
-4. Provide an out-of-overlay control surface for changing opacity or stopping
-   the overlay.
+## Versioning
 
-## Desktop Prototype
+`VERSION` is the shared semantic version source. Desktop commands verify that
+`desktop/package.json` matches it. Android reads it directly and generates its
+numeric version code as `major * 10000 + minor * 100 + patch`.
 
-The `web` branch is the Electron desktop variant. It creates one click-through
-overlay per connected display and exposes all controls through the system tray.
-The application icon is maintained as `icon.svg`, with `icon.png` used as the
-runtime-compatible window and tray icon.
-
-### Run
+## Desktop
 
 Requires Node.js 18 or newer.
 
 ```bash
+cd desktop
 npm install
 npm start
+npm run build:win
 ```
 
-The Windows package can be built with `npm run build:win`. Outputs are written
-to `release/`. macOS and Linux packaging is temporarily disabled.
+Build output is written to `desktop/release/`.
 
-Use the Sunglasses tray menu to select a dimming level, temporarily disable the
-overlay, or quit. The selected opacity is stored in Electron's user-data
-directory.
+## Android
 
-Double-click the tray icon or choose **打开设置** to open the single-page
-settings window. It includes:
+Requires JDK 17 and Android SDK 34.
 
-- Global overlay toggle shortcut, defaulting to `Alt+I`.
-- Opacity and overlay color controls.
-- An optional taskbar-covering fullscreen mode, disabled by default.
-- A 15-second confirmation and automatic rollback when the enabled overlay is
-  set above 60% opacity.
-- An optional force-top loop and its interval.
-- Total time for which the overlay has actually been enabled.
+```bash
+cd android
+gradle --no-daemon assembleDebug
+```
 
-The overlay is intentionally absent from the taskbar and never receives mouse
-or keyboard focus. On Windows and macOS it uses Electron's `screen-saver`
-always-on-top level. Behavior above exclusive fullscreen applications remains
-platform-dependent. When the force-top loop is enabled, Sunglasses periodically
-reapplies that level and moves each overlay to the top without stealing focus.
-Operating-system secure desktops, including Windows lock and UAC screens,
-cannot be covered by a normal desktop application.
+The APK is written to `android/app/build/outputs/apk/debug/`.
 
-Every push and pull request to the `web` branch builds the Windows package with
-GitHub Actions. Successful jobs publish the `sunglasses-windows` workflow
-artifact. macOS and Linux jobs are temporarily disabled.
+## Branches
 
-## Status
-
-This repository currently contains an initial prototype. Packaging, signing,
-startup integration, and production UI can be added after the core overlay
-behavior is validated on target devices.
+`main` is the combined development branch. The existing `web` and `android`
+branches retain their platform-specific history and can be kept as references.
