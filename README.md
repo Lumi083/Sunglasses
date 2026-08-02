@@ -3,6 +3,9 @@
 Android墨镜通过全屏纯色 Android 遮罩降低感知亮度。遮罩不可聚焦且不可触摸，
 所有输入会继续传递到下方应用。
 
+Current version: `1.0.0`. Releases use semantic versions. Android's numeric
+`versionCode` uses `major * 10000 + minor * 100 + patch`.
+
 ## Features
 
 - Persistent foreground-service overlay.
