@@ -6,6 +6,9 @@ interfering with other applications.
 
 This branch contains the Electron desktop implementation.
 
+Current version: `1.0.0`. The version is maintained in `package.json` and is
+used by Electron at runtime and by packaged artifact names.
+
 Both implementations follow the same minimal model:
 
 1. Cover the available display with a black overlay.
@@ -31,9 +34,8 @@ npm install
 npm start
 ```
 
-Platform packages can be built with `npm run build:win`,
-`npm run build:linux`, or `npm run build:mac`. Outputs are written to
-`release/`.
+The Windows package can be built with `npm run build:win`. Outputs are written
+to `release/`. macOS and Linux packaging is temporarily disabled.
 
 Use the Sunglasses tray menu to select a dimming level, temporarily disable the
 overlay, or quit. The selected opacity is stored in Electron's user-data
@@ -58,9 +60,9 @@ reapplies that level and moves each overlay to the top without stealing focus.
 Operating-system secure desktops, including Windows lock and UAC screens,
 cannot be covered by a normal desktop application.
 
-Every push and pull request to the `web` branch builds Windows, Linux, and macOS
-packages with GitHub Actions. Successful jobs publish `sunglasses-windows`,
-`sunglasses-linux`, and `sunglasses-macos` workflow artifacts.
+Every push and pull request to the `web` branch builds the Windows package with
+GitHub Actions. Successful jobs publish the `sunglasses-windows` workflow
+artifact. macOS and Linux jobs are temporarily disabled.
 
 ## Status
 

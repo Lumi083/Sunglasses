@@ -11,6 +11,7 @@ const elements = {
   forceTopEnabled: document.querySelector('#force-top-enabled'),
   forceTopInterval: document.querySelector('#force-top-interval'),
   totalUsage: document.querySelector('#total-usage'),
+  appVersion: document.querySelector('#app-version'),
   saveStatus: document.querySelector('#save-status'),
   opacityConfirm: document.querySelector('#opacity-confirm'),
   confirmOpacity: document.querySelector('#confirm-opacity'),
@@ -54,6 +55,7 @@ function render(settings) {
   elements.forceTopInterval.value = settings.forceTopIntervalMs;
   elements.forceTopInterval.disabled = !settings.forceTopEnabled;
   elements.totalUsage.textContent = formatDuration(settings.totalUsageSeconds);
+  elements.appVersion.textContent = settings.appVersion;
   renderOpacityConfirmation(settings.opacityConfirmation, settings.opacity);
 }
 

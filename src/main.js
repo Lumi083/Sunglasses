@@ -116,6 +116,7 @@ function saveSettings() {
 function settingsSnapshot() {
   return {
     ...settings,
+    appVersion: app.getVersion(),
     opacity: pendingOpacity ? pendingOpacity.value : settings.opacity,
     opacityConfirmation: pendingOpacity
       ? { deadline: pendingOpacity.deadline, previousOpacity: pendingOpacity.previousOpacity }
